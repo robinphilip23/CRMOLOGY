@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CRMOLOGY: Zero-Data-Entry CRM
 
-## Getting Started
+CRMOLOGY is an AI-native Customer Relationship Management (CRM) platform designed to eliminate manual data entry. Built with modern web technologies, it features an intelligent agent that automatically parses inbound communications, extracts key deal data, and manages your pipeline with minimal user intervention.
 
-First, run the development server:
+## 🚀 Features
 
+- **Zero-Data-Entry Pipeline**: AI automatically identifies leads and deal values from communications.
+- **Smart Inbox**: Inbound messages are pre-parsed for Intent and Confidence Scoring.
+- **Multi-Tenant Architecture**: Strict data isolation with PostgreSQL Row-Level Security (RLS).
+- **Passwordless Authentication**: Secure login via Magic Links and OAuth.
+- **Modern UI/UX**: Built with Framer Motion and Tailwind CSS for fluid, glassmorphic interactions.
+
+## 🛠 Tech Stack
+
+- **Frontend**: Next.js 16 (App Router), React, TypeScript
+- **Styling**: Tailwind CSS v4, shadcn/ui, Framer Motion
+- **Backend & Database**: Supabase (PostgreSQL)
+- **Auth**: `@supabase/ssr`
+
+## ⚙️ Local Development
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/robinphilip23/CRMOLOGY.git
+cd CRMOLOGY
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Environment Variables
+Create a `.env.local` file in the root directory and add your Supabase credentials. **Never commit this file.**
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Database Setup
+Execute the required database schema (including `tenants` and `profiles` tables, RLS policies, and triggers) in your Supabase SQL Editor to enable multi-tenancy.
 
-## Learn More
+### 5. Run the server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## 🔒 Security
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This repository does not track `.env` files or local AI assistant configurations to ensure sensitive credentials and API keys are kept secure. Multi-tenancy is enforced natively at the database level via Supabase RLS.
