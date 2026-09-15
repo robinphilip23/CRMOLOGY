@@ -35,6 +35,14 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/auth');
   const isPublicRoute = request.nextUrl.pathname === '/';
 
+  // Handle Supabase OAuth fallback: If Supabase redirects to the root URL (Site URL) 
+  // with an auth code instead of the callback route, intercept and redirect it to the callback.
+  if (request.nextUrl.pathname === '/' && request.nextUrl.searchParams.has('code')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/auth/callback';
+    return NextResponse.redirect(url);
+  }
+
   if (!user && !isAuthRoute && !isPublicRoute) {
     // Redirect unauthenticated users to login
     const url = request.nextUrl.clone();
